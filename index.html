@@ -3,12 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Git Commands Reference</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --card: #161b22;
+            --border: #30363d;
+            --text: #c9d1d9;
+            --heading: #58a6ff;
+            --accent: #f78166;
+            --code-bg: #1c2128;
+            --comment: #8b949e;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        header h1 { margin: 0; font-size: 2.2rem; color: #fff; }
+        header p { color: var(--comment); margin: 8px 0 0; }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px 20px 60px;
+        }
+
+        /* Search box */
+        .search-wrap { margin: 24px 0; }
+        #search {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 1rem;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            outline: none;
+        }
+        #search:focus { border-color: var(--heading); }
+
+        section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin-bottom: 18px;
+        }
+
+        section h2 {
+            color: var(--heading);
+            margin: 0 0 14px;
+            font-size: 1.25rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+        }
+
+        .cmd {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            gap: 12px;
+            align-items: baseline;
+            padding: 6px 0;
+        }
+
+        .cmd code {
+            font-family: "Fira Code", "Consolas", monospace;
+            background: var(--code-bg);
+            color: var(--accent);
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            word-break: break-word;
+        }
+
+        .cmd .desc { color: var(--comment); font-size: 0.92rem; }
+
+        .hidden { display: none !important; }
+
+        footer {
+            text-align: center;
+            color: var(--comment);
+            font-size: 0.85rem;
+            padding-bottom: 30px;
+        }
+
+        @media (max-width: 600px) {
+            .cmd { grid-template-columns: 1fr; gap: 2px; }
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello World</h1>
-    <p>This is a simple HTML document.</p>
-    <p>git test</p>
-</body>
+    <header>
+        <h1>🌿 Git Commands Reference</h1>
+        <p>A quick, searchable cheat sheet of everyday Git commands</p>
+    </header>
 
+    <div class="container">
+        <div class="search-wrap">
+            <input id="search" type="text" placeholder="🔍 Search commands… (e.g. branch, push, undo)">
+        </div>
+
+        <section>
+            <h2>1. Setup &amp; Configuration</h2>
+            <div class="cmd"><code>git config --global user.name "Name"</code><span class="desc">Set your name</span></div>
+            <div class="cmd"><code>git config --global user.email "you@mail.com"</code><span class="desc">Set your email</span></div>
+            <div class="cmd"><code>git config --list</code><span class="desc">View all settings</span></div>
+            <div class="cmd"><code>git --version</code><span class="desc">Check Git version</span></div>
+        </section>
+
+        <section>
+            <h2>2. Starting a Repository</h2>
+            <div class="cmd"><code>git init</code><span class="desc">Create a new repo here</span></div>
+            <div class="cmd"><code>git clone &lt;url&gt;</code><span class="desc">Copy a remote repo locally</span></div>
+            <div class="cmd"><code>git clone &lt;url&gt; &lt;folder&gt;</code><span class="desc">Clone into a specific folder</span></div>
+        </section>
+
+        <section>
+            <h2>3. Basic Snapshotting</h2>
+            <div class="cmd"><code>git status</code><span class="desc">Show changed/staged files</span></div>
+            <div class="cmd"><code>git add &lt;file&gt;</code><span class="desc">Stage one file</span></div>
+            <div class="cmd"><code>git add .</code><span class="desc">Stage everything</span></div>
+            <div class="cmd"><code>git reset &lt;file&gt;</code><span class="desc">Unstage a file (keep changes)</span></div>
+            <div class="cmd"><code>git commit -m "message"</code><span class="desc">Commit staged changes</span></div>
+            <div class="cmd"><code>git commit -am "message"</code><span class="desc">Stage tracked files + commit</span></div>
+            <div class="cmd"><code>git commit --amend</code><span class="desc">Edit the last commit</span></div>
+        </section>
+
+        <section>
+            <h2>4. Viewing Changes &amp; History</h2>
+            <div class="cmd"><code>git diff</code><span class="desc">Unstaged changes</span></div>
+            <div class="cmd"><code>git diff --staged</code><span class="desc">Staged changes</span></div>
+            <div class="cmd"><code>git log</code><span class="desc">Full commit history</span></div>
+            <div class="cmd"><code>git log --oneline</code><span class="desc">Compact history</span></div>
+            <div class="cmd"><code>git log --oneline --graph --all</code><span class="desc">Visual branch graph</span></div>
+            <div class="cmd"><code>git show &lt;commit&gt;</code><span class="desc">Details of a commit</span></div>
+            <div class="cmd"><code>git blame &lt;file&gt;</code><span class="desc">Who changed each line</span></div>
+        </section>
+
+        <section>
+            <h2>5. Branching</h2>
+            <div class="cmd"><code>git branch</code><span class="desc">List branches</span></div>
+            <div class="cmd"><code>git branch &lt;name&gt;</code><span class="desc">Create a branch</span></div>
+            <div class="cmd"><code>git checkout &lt;name&gt;</code><span class="desc">Switch to a branch</span></div>
+            <div class="cmd"><code>git checkout -b &lt;name&gt;</code><span class="desc">Create + switch</span></div>
+            <div class="cmd"><code>git switch -c &lt;name&gt;</code><span class="desc">Create + switch (newer)</span></div>
+            <div class="cmd"><code>git merge &lt;name&gt;</code><span class="desc">Merge branch into current</span></div>
+            <div class="cmd"><code>git branch -d &lt;name&gt;</code><span class="desc">Delete a branch</span></div>
+            <div class="cmd"><code>git branch -m &lt;old&gt; &lt;new&gt;</code><span class="desc">Rename a branch</span></div>
+        </section>
+
+        <section>
+            <h2>6. Remote Repositories</h2>
+            <div class="cmd"><code>git remote -v</code><span class="desc">List remotes</span></div>
+            <div class="cmd"><code>git remote add origin &lt;url&gt;</code><span class="desc">Link a remote</span></div>
+            <div class="cmd"><code>git push</code><span class="desc">Push commits</span></div>
+            <div class="cmd"><code>git push -u origin main</code><span class="desc">Push + set upstream (first time)</span></div>
+            <div class="cmd"><code>git pull</code><span class="desc">Fetch + merge from remote</span></div>
+            <div class="cmd"><code>git fetch</code><span class="desc">Download changes (no merge)</span></div>
+        </section>
+
+        <section>
+            <h2>7. Undoing Things</h2>
+            <div class="cmd"><code>git restore &lt;file&gt;</code><span class="desc">Discard unstaged changes</span></div>
+            <div class="cmd"><code>git restore --staged &lt;file&gt;</code><span class="desc">Unstage a file</span></div>
+            <div class="cmd"><code>git reset --soft HEAD~1</code><span class="desc">Undo last commit, keep staged</span></div>
+            <div class="cmd"><code>git reset --hard HEAD~1</code><span class="desc">Undo last commit, DISCARD changes</span></div>
+            <div class="cmd"><code>git revert &lt;commit&gt;</code><span class="desc">New commit that undoes one</span></div>
+            <div class="cmd"><code>git clean -fd</code><span class="desc">Delete untracked files &amp; folders</span></div>
+        </section>
+
+        <section>
+            <h2>8. Stashing</h2>
+            <div class="cmd"><code>git stash</code><span class="desc">Save uncommitted changes</span></div>
+            <div class="cmd"><code>git stash list</code><span class="desc">List stashes</span></div>
+            <div class="cmd"><code>git stash pop</code><span class="desc">Restore + remove newest stash</span></div>
+            <div class="cmd"><code>git stash apply</code><span class="desc">Restore but keep the stash</span></div>
+            <div class="cmd"><code>git stash clear</code><span class="desc">Delete all stashes</span></div>
+        </section>
+
+        <section>
+            <h2>9. Tags</h2>
+            <div class="cmd"><code>git tag</code><span class="desc">List tags</span></div>
+            <div class="cmd"><code>git tag -a v1.0 -m "Release"</code><span class="desc">Create an annotated tag</span></div>
+            <div class="cmd"><code>git push origin v1.0</code><span class="desc">Push a tag</span></div>
+            <div class="cmd"><code>git push origin --tags</code><span class="desc">Push all tags</span></div>
+        </section>
+
+        <section>
+            <h2>10. Inspecting &amp; Recovering</h2>
+            <div class="cmd"><code>git diff branchA..branchB</code><span class="desc">Compare two branches</span></div>
+            <div class="cmd"><code>git shortlog -sn</code><span class="desc">Commit count per author</span></div>
+            <div class="cmd"><code>git reflog</code><span class="desc">History of HEAD (recover commits)</span></div>
+        </section>
+
+        <p id="no-results" class="hidden" style="text-align:center;color:var(--comment);">
+            No commands match your search.
+        </p>
+    </div>
+
+    <footer>
+        Git Commands Reference · made for practice 🌱
+    </footer>
+
+    <script>
+        const search = document.getElementById('search');
+        const cmds = document.querySelectorAll('.cmd');
+        const sections = document.querySelectorAll('section');
+        const noResults = document.getElementById('no-results');
+
+        search.addEventListener('input', () => {
+            const term = search.value.toLowerCase().trim();
+            let totalVisible = 0;
+
+            sections.forEach(section => {
+                let sectionVisible = 0;
+                section.querySelectorAll('.cmd').forEach(cmd => {
+                    const match = cmd.textContent.toLowerCase().includes(term);
+                    cmd.classList.toggle('hidden', !match);
+                    if (match) sectionVisible++;
+                });
+                section.classList.toggle('hidden', sectionVisible === 0);
+                totalVisible += sectionVisible;
+            });
+
+            noResults.classList.toggle('hidden', totalVisible !== 0);
+        });
+    </script>
+</body>
 </html>
